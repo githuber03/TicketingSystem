@@ -226,9 +226,7 @@ j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
           </li>
         </ul>
       </div>
-    </nav>
-   
-       
+    </nav> 
 @extends('layouts.app')
 @section('content')
 <style>
