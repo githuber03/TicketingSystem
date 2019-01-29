@@ -3,8 +3,10 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-// calling modal User.php in Controller PostController
-use App\Share; 
+// calling model User.php in Controller ShareController
+use App\Share;
+// calling model TicketQuiries.php in Controller ShareController
+use App\TicketQuries;
 use Session;
 
 class ShareController extends Controller
@@ -14,6 +16,21 @@ class ShareController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+
+        protected $query;
+
+    public function __construct(){
+
+        $this->middleware('auth');
+
+        $TicketQuries = TicketQuries::all();
+
+        $this->query= array();
+        foreach ($TicketQuries as $queries) {
+            $this->query[$queries->ticketquery_code] = $queries->ticketquery_desc;
+        }
+    }
+
     public function index()
     {
          $shares = Share::all();
@@ -29,7 +46,7 @@ class ShareController extends Controller
      */
     public function create()
     {
-	   return view('share.create');
+        return view('share.create');
     }
 
     /**
@@ -45,7 +62,7 @@ class ShareController extends Controller
       $share->share_ticket = $request->input('share_ticket');
       $share->share_name = $request->input('share_name');
       $share->share_department = $request->input('share_department');
-      $share->share_priority = $request->input('share_priority');
+      $share->ticketquery_id = $request->input('ticketquery_id');
   
 
       $share->save();
@@ -76,7 +93,10 @@ class ShareController extends Controller
     {
         $share = Share::find($id);
 
-        return view('share.edit', compact('share'));
+        return view('share.edit')->with([
+            'editShare' => $share,
+            'queryData' => $this->query,
+        ]);
     }
 
     /**
@@ -93,7 +113,7 @@ class ShareController extends Controller
       $share->share_ticket = $request->input('share_ticket');
       $share->share_name = $request->input('share_name');
       $share->share_department = $request->input('share_department');
-      $share->share_priority = $request->input('share_priority');
+      $share->ticketquery_id = $request->input('ticketquery_id');
   
 
       $share->save();

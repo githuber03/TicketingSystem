@@ -18,11 +18,11 @@ class CreateTicketsTable extends Migration
             $table->string('share_name');
             $table->integer('share_ticket');
             $table->string('share_department');
-            $table->string('share_priority');
+            $table->string('ticketquery_id');
             $table->timestamps();
         });
-        
-        
+
+
     }
 
     /**

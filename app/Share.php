@@ -11,6 +11,11 @@ class Share extends Model
    protected $fillable =  [
 	'share_ticket',
 	'share_name',
-	'share_price'
+	'share_department',
+	'ticketquery_id'
    ];
+
+    public function ticketQuiries(){
+      return $this->hasOne('App\TicketQuries','ticketquery_code','ticketquery_id');
+    }
 }

@@ -35,28 +35,28 @@
         </ul>
       </div><br />
     @endif
-      <form method="post" action="{{ route('share.update', $share->id) }}">
-        @method('PATCH')
-        @csrf
+        {!! Form::model($editShare, ['route' => ['share.update', $editShare->id], 'method' => 'PUT']) !!}
+          @csrf
         <div class="form-group">
-          <label for="name">Ticket:</label>
-          <input type="text" class="form-control" name="share_ticket"required value={{ $share->share_ticket }} />
-        </div>
-        <div class="form-group">
-          <label for="price">Name :</label>
-          <input type="text" class="form-control" name="share_name"required value={{ $share->share_name }} />
-        </div>
-        <div class="form-group">
-          <label for="quantity">Department:</label>
-          <input type="text" class="form-control" name="share_department"required value={{ $share->share_department }} />
-        </div>
-        <div class="form-group">
-          <label for="quantity">Priority:</label>
-          <input type="text" class="form-control" name="share_priority"required value={{ $share->share_priority }} />
-        </div>
-      
-        <button type="submit" class="btn btn-primary">Update</button>
-      </form>
+              @csrf
+              {{ Form::label('share_ticket','TICKETS') }}
+              {{ Form::text('share_ticket',null,['class'=>'form-control','id'=>'share_ticket']) }} 
+          </div>
+          <div class="form-group">
+              {{ Form::label('share_name','NAME') }}
+              {{ Form::text('share_name',null,['class'=>'form-control','id'=>'share_name']) }}
+          </div>
+          <div class="form-group">
+              {{ Form::label('share_department','DEPARTMENT') }}
+              {{ Form::text('share_department',null,['class'=>'form-control','id'=>'share_department']) }}
+          </div>
+         <div class="form-group">
+            {{ Form::label('ticketquery_id','PRIORITY') }}
+            {{ Form::select('ticketquery_id',$queryData,NULL, ['class' => 'js-example-basic-single form-control','id' => 'ticketquery_id','name' => 'ticketquery_id']) }}
+         </div>
+         <br>   
+          <button type="submit" class="btn btn-primary">Add</button>
+       {!! Form::close() !!}
   </div>
 </div>
 @endsection
